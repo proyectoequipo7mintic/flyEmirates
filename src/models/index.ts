@@ -3,3 +3,4 @@ export * from './ruta.model';
 export * from './usuario.model';
 export * from './vuelo.model';
 
+export * from './credenciales.model';
