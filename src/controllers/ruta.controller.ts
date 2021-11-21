@@ -1,3 +1,4 @@
+import {authenticate} from '@loopback/authentication';
 import {
   Count,
   CountSchema,
@@ -14,6 +15,7 @@ import {
 import {Ruta} from '../models';
 import {RutaRepository} from '../repositories';
 
+@authenticate("admin")
 export class RutaController {
   constructor(
     @repository(RutaRepository)
@@ -21,6 +23,7 @@ export class RutaController {
   ) { }
 
   @post('/rutas')
+  @authenticate.skip()
   @response(200, {
     description: 'Ruta model instance',
     content: {'application/json': {schema: getModelSchemaRef(Ruta)}},

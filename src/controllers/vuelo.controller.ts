@@ -1,3 +1,4 @@
+import {authenticate} from '@loopback/authentication';
 import {
   Count,
   CountSchema,
@@ -14,6 +15,7 @@ import {
 import {Vuelo} from '../models';
 import {VueloRepository} from '../repositories';
 
+@authenticate("admin")
 export class VueloController {
   constructor(
     @repository(VueloRepository)
@@ -21,6 +23,7 @@ export class VueloController {
   ) { }
 
   @post('/vuelos')
+  @authenticate.skip()
   @response(200, {
     description: 'Vuelo model instance',
     content: {'application/json': {schema: getModelSchemaRef(Vuelo)}},
