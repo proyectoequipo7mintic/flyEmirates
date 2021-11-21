@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"name": "apilookback",
+			"path": "apilookback"
+		}
+	],
+	"settings": {
+		"typescript.tsdk": "./node_modules/typescript/lib"
+	}
+}
