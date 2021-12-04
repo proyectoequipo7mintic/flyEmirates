@@ -1,7 +1,6 @@
 import {authenticate} from '@loopback/authentication';
 import {service} from '@loopback/core';
 import {
-
   Count,
   CountSchema,
   Filter,
@@ -28,8 +27,8 @@ export class UsuarioController {
     public servicioAuth: AuthService
   ) { }
 
-  @post('/usuarios')
   @authenticate.skip()
+  @post('/usuarios')
   @response(200, {
     description: 'Usuario model instance',
     content: {'application/json': {schema: getModelSchemaRef(Usuario)}},
@@ -47,6 +46,8 @@ export class UsuarioController {
     })
     usuario: Omit<Usuario, 'id'>,
   ): Promise<Usuario> {
+    // return this.usuarioRepository.create(usuario);
+
     //Nuevo
     let clave = this.servicioAuth.GenerarClave();
     let claveCifrada = this.servicioAuth.CifrarClave(clave);
@@ -54,16 +55,15 @@ export class UsuarioController {
     let p = await this.usuarioRepository.create(usuario);
 
     // Notificamos al usuario por correo
-    let destino = usuario.correo;
+    // let destino = usuario.correo;
     // Notifiamos al usuario por telefono y cambiar la url por send_sms
-    // let destino = usuario.telefono;
+    let destino = usuario.telefono;
 
     let asunto = 'Registro de usuario en plataforma';
     let contenido = `Hola, ${usuario.nombre} ${usuario.apellidos} su contraseña en el portal es: ${clave}`
     axios({
       method: 'post',
-      url: 'http://localhost:5000/send_email', //Si quiero enviar por mensaje cambiar a send_sms
-
+      url: 'http://localhost:5000/send_sms', //Si quiero enviar por mensaje cambiar a send_sms
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'

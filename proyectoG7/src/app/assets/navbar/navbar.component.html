@@ -3,15 +3,20 @@
     <ul id="nav-mobile" class="left hide-on-med-and-down">
       <div class="navbar-fixed">
         <nav>
-          <div class="card-panel green darken-1 nav-wrapper">
-            <a href="#!" class="brand-logo">FlyEmirates<img src="logo1.jpg"></a>
-            <ul class="right hide-on-med-and-down">
-              <li><a href="sass.html">Usuarios</a></li>
-              <li><a href="badges.html">Aeropuertos</a></li>
-              <li><a href="badges.html">Rutas</a></li>
-              <li><a href="collapsible.html">Vuelos</a></li>
+          <div class="nav-wrapper teal darken-3">
+            <a href="#" class="brand-logo">
+              Logo
+            </a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+              <li *ngIf="activeSession"><a routerLink="/admin/get">Usuarios</a></li>
+              <li *ngIf="activeSession"><a routerLink="/aeropuertos/get">Aeropuertos</a></li>
+              <li *ngIf="activeSession"><a routerLink="/rutas/get">Rutas</a></li>
+         
+              <!-- Sesion -->
+              <li *ngIf="!activeSession"><a routerLink="/seguridad/login">Login</a></li>
+              <li *ngIf="!activeSession"><a routerLink="/admin/create">Registrarse</a></li>
+              <li *ngIf="activeSession"><a routerLink="/seguridad/logout">Cerrar Sesion</a></li>
             </ul>
-
           </div>
         </nav>
 
